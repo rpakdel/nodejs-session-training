@@ -1,0 +1,22 @@
+body {
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+#newUserForm {
+    background: lightyellow;
+    margin: 20px;
+    left: 0px;
+    right: 0px;
+    text-align: right;
+    max-width: 300px;
+    padding: 20px;
+}
+
+#newUserForm .newUserFormItem {
+    margin: 5px;
+}

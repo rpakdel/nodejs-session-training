@@ -1,0 +1,32 @@
+upstream backend_hosts {
+    server 10.40.186.116:3000;
+}
+
+server {
+       listen 8080;
+       listen [::]:8080;
+       server_name 10.40.186.116;       
+       return 302 https://$server_name$request_uri;
+}
+
+server {
+    # SSL configuration
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name raspberrypi;
+    include  /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_certificate /home/rpakdel2/yvr-bb3/004-nodejs-user-session/completed/ssl/server.crt;
+    ssl_certificate_key /home/rpakdel2/yvr-bb3/004-nodejs-user-session/completed/ssl/server.key;
+
+    root /home/rpakdel2/yvr-bb3/004-nodejs-user-session/completed/public;
+
+    location / {
+       # First attempt to serve request as file, then
+       # as directory, then fall back to displaying a 404.
+       try_files $uri $uri/ =404;
+    }
+
+    location /api {
+       proxy_pass http://backend_hosts;
+    }
+}
